@@ -29,8 +29,7 @@ function App() {
             <h2>Current System time</h2>
             {timeData ? (
                 <>
-                    <p>Time: {timeData.time_string}</p>
-                    <p>Date: {timeData.date_string}</p>
+                    <p>Date: {timeData.date_string} Time: {timeData.time_string}</p>
                 </>
             ) : (
                 <p>Loading time data ...</p>
