@@ -1,33 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { invoke } from "@tauri-apps/api/core";
+import { TimeData } from './interface.ts';
 
 function App() {
-    const [name, setName] = useState("");
-    const [greetMsg, setGreetMsg] = useState("");
+    // const [name, setName] = useState("");
+    const [timeData, setTimeData] = useState<TimeData | null>(null);
 
-    async function greet() {
-        setGreetMsg(await invoke("greet", { name }));
-    }
+    useEffect(() => {
+        const fetchTime = async () => {
+            try {
+                const data = await invoke<TimeData>("get_current_time");
+                setTimeData(data);
+            } catch (error) {
+                console.error("Error fetching time", error);
+            }
+        };
+
+        fetchTime();
+
+        const timer = setInterval(fetchTime, 1000);
+        return () => clearInterval(timer);
+    }, []);
 
     return (
         <main className="container">
-        <h1>Welcome to Tauri</h1>
-        <form
-            className="row"
-            onSubmit={(e) => {
-            e.preventDefault();
-            greet();
-            }}
-        >
-            <input
-                id="greet-input"
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter a name..."
-            />
-            <button type="submit">Greet</button>
-        </form>
-        <p>{greetMsg}</p>
-        <p>Testing message from React component</p>
+        <h1>Pomodoro Application</h1>
+        <div className="time-display">
+            <h2>Current System time</h2>
+            {timeData ? (
+                <>
+                    <p>Time: {timeData.time_string}</p>
+                    <p>Date: {timeData.date_string}</p>
+                </>
+            ) : (
+                <p>Loading time data ...</p>
+            )}
+        </div>
         </main>
     );
 }
