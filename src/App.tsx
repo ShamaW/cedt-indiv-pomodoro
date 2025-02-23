@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { invoke } from "@tauri-apps/api/core";
 import { TimeData } from './interface.ts';
+import CountdownTimer from './CountDownTimer.tsx'
 
 function App() {
     // const [name, setName] = useState("");
@@ -24,17 +25,16 @@ function App() {
 
     return (
         <main className="container">
-        <h1>Pomodoro Application</h1>
-        <div className="time-display">
-            <h2>Current System time</h2>
-            {timeData ? (
-                <>
-                    <p>Date: {timeData.date_string} Time: {timeData.time_string}</p>
-                </>
-            ) : (
-                <p>Loading time data ...</p>
-            )}
-        </div>
+            <h1>Pomodoro Application</h1>
+            <div className="time-display">
+                <h2>Current System time</h2>
+                {timeData ? (
+                    <>
+                        <p>Date: {timeData.date_string} Time: {timeData.time_string}</p>
+                    </>
+                ) : (<p>Loading time data ...</p>)}
+            </div>
+            <CountdownTimer />
         </main>
     );
 }
