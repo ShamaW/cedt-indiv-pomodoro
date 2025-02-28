@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { PhysicalPosition, Window } from "@tauri-apps/api/window";
 
 function CountdownTimer() {
     const [startTime, setStartTime] = useState<string | null>(null);
@@ -23,7 +24,9 @@ function CountdownTimer() {
         }
         else if (remainingSeconds <= 0 && isRunning) {
             setIsRunning(false);
-            setIsPaused(false)
+            setIsPaused(false);
+            shakeWindow();
+            // sound
         }
 
         return () => {if (interval) clearInterval(interval)};
@@ -35,6 +38,7 @@ function CountdownTimer() {
         setIsRunning(true);
         setIsPaused(false);
         setStartTime(new Date().toISOString());
+        console.log("start");
     };
 
     const handleStop = () => {
@@ -50,6 +54,32 @@ function CountdownTimer() {
         if (isPaused) return "Paused";
         return "Running";
     }
+
+    const shakeWindow = async () => {
+        const appWindow = Window.getCurrent();
+
+        const position = await appWindow.outerPosition();
+        const baseX = position.x;
+        const baseY = position.y;
+        
+        const shakePattern = [
+            { x: -10, y: -10 },
+            { x: 10, y: -10 },
+            { x: 8, y: 8 },
+            { x: 8, y: -8 },
+            { x: -5, y: -5 },
+            { x: 5, y: -5 },
+            { x: 0, y: 0 }
+        ];
+        
+        for (let i = 0; i < shakePattern.length; i++) {
+            setTimeout(async () => {
+                await appWindow.setPosition(
+                    new PhysicalPosition(baseX + shakePattern[i].x, baseY + shakePattern[i].y)
+                );
+            }, i * 50);
+        }
+    };
 
     return (
         <div className="timer-container">
