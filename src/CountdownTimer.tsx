@@ -1,63 +1,46 @@
 import React, { useState, useEffect } from 'react';
-import { invoke } from "@tauri-apps/api/core";
-import { TimerState } from './interface.ts';
 
 function CountdownTimer() {
-    const [timerState, setTimerState] = useState<TimerState>({
-        remaining_seconds: 0,
-        is_running: false,
-        start_time: null
-    });
+    const [startTime, setStartTime] = useState<string | null>(null);
+    const [isRunning, setIsRunning] = useState(false);
+    const [remainingSeconds, setRemainingSeconds] = useState(0);
     const [inputMinutes, setInputMinutes] = useState("5");
 
-    const formatTime = (totalSeconds: number) => {
-        const minutes = Math.floor(totalSeconds / 60);
-        const seconds = totalSeconds % 60;
-        return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    const formatTime = (totalSecond : number) => {
+        const minutes = Math.floor(totalSecond / 60);
+        const second = totalSecond % 60;
+        return `${minutes.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
     };
 
     useEffect(() => {
-        if (timerState.is_running) {
-            const interval = setInterval(async () => {
-                try {
-                    const updateState = await invoke<TimerState>("get_timer_state");
-                    setTimerState(updateState);
+        let interval : number | undefined;
 
-                    if (updateState.remaining_seconds <= 0 && updateState.is_running) {
-                        await invoke<TimerState>("stop_timer");
-                    }
-                } catch (e) {
-                    console.error("Failed to get timer state", e);
-                }
+        if (isRunning && remainingSeconds > 0) {
+            interval = window.setInterval(() => {
+                setRemainingSeconds(prev => prev - 1);
             }, 1000);
-            return () => clearInterval(interval);
         }
-    }, [timerState.is_running]);
+        else if (remainingSeconds <= 0 && isRunning) {
+            setIsRunning(false);
+        }
 
-    const handleStart = async() => {
-        try {
-            const durationSeconds = parseInt(inputMinutes) * 60;
-            const state = await invoke<TimerState>("start_timer", { durationSeconds });
-            setTimerState(state);
-        } catch (e) {
-            console.error("Failed to start timer", e);
-        }
+        return () => {if (interval) clearInterval(interval)};
+    }, [isRunning, remainingSeconds]);
+
+    const handleStart = () => {
+        const durationSeconds = parseInt(inputMinutes) * 60;
+        setRemainingSeconds(durationSeconds);
+        setIsRunning(true);
+        setStartTime(new Date().toISOString());
     };
 
-    const handleStop = async() => {
-        try {
-            const state = await invoke<TimerState>("stop_timer");
-            setTimerState(state);
-        } catch (e) {
-            console.error("Failed to stop timer", e);
-        }
-    };
+    const handleStop = () => { setIsRunning(false); };
 
     return (
         <div className="timer-container">
             <div className="timer-display">
-                <h1>{formatTime(timerState.remaining_seconds)}</h1>
-                <p>Status: {timerState.is_running ? "Running" : "Stopped"}</p>
+                <h1>{formatTime(remainingSeconds)}</h1>
+                <p>Status: {isRunning ? "Running" : "Stopped"}</p>
             </div>
 
             <div className="timer-controls">
@@ -67,13 +50,13 @@ function CountdownTimer() {
                     onChange={(e) => setInputMinutes(e.target.value)}
                     min="1"
                     max="60"
-                    disabled={timerState.is_running}
+                    disabled={isRunning}
                     placeholder='5'
                 />
                 <span> minutes</span>
                 <div>
-                    <button onClick={handleStart} disabled={timerState.is_running} >Start</button>
-                    <button onClick={handleStop} disabled={!timerState.is_running}>Stop</button>
+                    <button onClick={handleStart} disabled={isRunning} >Start</button>
+                    <button onClick={handleStop} disabled={!isRunning}>Stop</button>
                 </div>
             </div>
         </div>
