@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "pomodoro-app",
+  "productName": "pomo-by-shamw",
   "version": "0.1.0",
-  "identifier": "com.pomodoro-app.app",
+  "identifier": "com.pomo-by-shamw.app",
   "build": {
     "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:1420",
@@ -13,7 +13,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "pomodoro-app",
+        "title": "Pomo by ShamaW",
         "width": 800,
         "height": 600
       }

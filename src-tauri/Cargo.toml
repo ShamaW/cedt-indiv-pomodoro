@@ -1,5 +1,5 @@
 [package]
-name = "pomodoro-app"
+name = "pomo-by-shamw"
 version = "0.1.0"
 description = "A Tauri App"
 authors = ["you"]
