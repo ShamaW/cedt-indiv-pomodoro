@@ -5,6 +5,7 @@ function CountdownTimer() {
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(0);
     const [inputMinutes, setInputMinutes] = useState("5");
+    const [isPaused, setIsPaused] = useState(false);
 
     const formatTime = (totalSecond : number) => {
         const minutes = Math.floor(totalSecond / 60);
@@ -15,32 +16,46 @@ function CountdownTimer() {
     useEffect(() => {
         let interval : number | undefined;
 
-        if (isRunning && remainingSeconds > 0) {
+        if (isRunning && !isPaused && remainingSeconds > 0) {
             interval = window.setInterval(() => {
                 setRemainingSeconds(prev => prev - 1);
             }, 1000);
         }
         else if (remainingSeconds <= 0 && isRunning) {
             setIsRunning(false);
+            setIsPaused(false)
         }
 
         return () => {if (interval) clearInterval(interval)};
-    }, [isRunning, remainingSeconds]);
+    }, [isRunning, isPaused, remainingSeconds]);
 
     const handleStart = () => {
         const durationSeconds = parseInt(inputMinutes) * 60;
         setRemainingSeconds(durationSeconds);
         setIsRunning(true);
+        setIsPaused(false);
         setStartTime(new Date().toISOString());
     };
 
-    const handleStop = () => { setIsRunning(false); };
+    const handleStop = () => {
+        setIsRunning(false);
+        setIsPaused(false);
+    };
+
+    const handlePause = () => { setIsPaused(true); };
+    const handleResume = () => { setIsPaused(false); };
+
+    const getStatus = () => {
+        if (!isRunning) return "Stopped";
+        if (isPaused) return "Paused";
+        return "Running";
+    }
 
     return (
         <div className="timer-container">
             <div className="timer-display">
                 <h1>{formatTime(remainingSeconds)}</h1>
-                <p>Status: {isRunning ? "Running" : "Stopped"}</p>
+                <p>Status: {getStatus()}</p>
             </div>
 
             <div className="timer-controls">
@@ -56,6 +71,8 @@ function CountdownTimer() {
                 <span> minutes</span>
                 <div>
                     <button onClick={handleStart} disabled={isRunning} >Start</button>
+                    {isRunning && !isPaused && (<button onClick={handlePause}>Pause</button>)}
+                    {isRunning && isPaused && (<button onClick={handleResume}>Resume</button>)}
                     <button onClick={handleStop} disabled={!isRunning}>Stop</button>
                 </div>
             </div>
