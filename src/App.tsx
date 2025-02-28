@@ -14,11 +14,10 @@ function App() {
 
     return (
         <main className="container">
-            <h1>Pomodoro Application</h1>
+            <h1>Pomo by ShamaW</h1>
             <div className="time-display">
-                <h2>Current System time</h2>
+                <p>Current System time: {currentTime.toLocaleTimeString()}</p>
                 <p>Date: {currentTime.toLocaleDateString()}</p>
-                <p>Time: {currentTime.toLocaleTimeString()}</p>
             </div>
             <CountdownTimer />
         </main>
