@@ -16,8 +16,8 @@ function App() {
         <main className="container">
             <h1>Pomo by ShamaW</h1>
             <div className="time-display">
-                <p>Current System time: {currentTime.toLocaleTimeString()}</p>
-                <p>Date: {currentTime.toLocaleDateString()}</p>
+                <p>Current System time: {currentTime.toLocaleTimeString(undefined, {hour12: false})}</p>
+                <p>Date: {currentTime.toLocaleDateString(undefined, {dateStyle:'medium'})}</p>
             </div>
             <CountdownTimer />
         </main>

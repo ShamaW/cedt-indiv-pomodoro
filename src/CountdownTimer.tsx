@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { PhysicalPosition, Window } from "@tauri-apps/api/window";
+import sound from "./assets/alarm_sound.wav";
 
 function CountdownTimer() {
     const [startTime, setStartTime] = useState<string | null>(null);
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(0);
-    const [inputMinutes, setInputMinutes] = useState("5");
+    const [inputMinutes, setInputMinutes] = useState("25");
     const [isPaused, setIsPaused] = useState(false);
+
+    let alarmSound = new Audio('./assets/alarm_sound.wav');
 
     const formatTime = (totalSecond : number) => {
         const minutes = Math.floor(totalSecond / 60);
@@ -26,7 +29,7 @@ function CountdownTimer() {
             setIsRunning(false);
             setIsPaused(false);
             shakeWindow();
-            // sound
+            new Audio(sound).play();
         }
 
         return () => {if (interval) clearInterval(interval)};
@@ -89,6 +92,7 @@ function CountdownTimer() {
             </div>
 
             <div className="timer-controls">
+            <span>Set time to </span>
                 <input
                     type="number"
                     value={inputMinutes}
@@ -96,7 +100,7 @@ function CountdownTimer() {
                     min="1"
                     max="60"
                     disabled={isRunning}
-                    placeholder='5'
+                    placeholder='25'
                 />
                 <span> minutes</span>
                 <div>
