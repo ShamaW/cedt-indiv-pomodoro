@@ -9,8 +9,6 @@ function CountdownTimer() {
     const [inputMinutes, setInputMinutes] = useState("25");
     const [isPaused, setIsPaused] = useState(false);
 
-    let alarmSound = new Audio('./assets/alarm_sound.wav');
-
     const formatTime = (totalSecond : number) => {
         const minutes = Math.floor(totalSecond / 60);
         const second = totalSecond % 60;
