@@ -1,7 +1,6 @@
-# Tauri + Vanilla TS
+# Pomo by ShamaW
 
-This template should help get you started developing with Tauri in vanilla HTML, CSS and Typescript.
+Desktop Pomodoro application project built for the Individual Study Course.
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer)
+## List of feature
+- Countdown timer
