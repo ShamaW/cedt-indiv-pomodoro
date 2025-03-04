@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import CountdownTimer from './CountDownTimer.tsx'
+import CountdownTimer from './CountdownTimer.tsx'
 
 function App() {
     // const [name, setName] = useState("");
