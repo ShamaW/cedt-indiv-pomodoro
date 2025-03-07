@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import CountdownTimer from './CountdownTimer.tsx'
+import Setting from './Setting.tsx';
 
 function App() {
     // const [name, setName] = useState("");
@@ -19,7 +21,15 @@ function App() {
                 <p>Current System time: {currentTime.toLocaleTimeString(undefined, {hour12: false})}</p>
                 <p>Date: {currentTime.toLocaleDateString(undefined, {dateStyle:'medium'})}</p>
             </div>
-            <CountdownTimer />
+            {/* <CountdownTimer /> */}
+            <nav className='navigation'>
+                <Link to="/" className="nav-link">Timer</Link>
+                <Link to="/setting" className='nav-link'>Setting</Link>
+            </nav>
+            <Routes>
+                <Route path="/" element={<CountdownTimer />} />
+                <Route path="/setting" element={<Setting />} />
+            </Routes>
         </main>
     );
 }
