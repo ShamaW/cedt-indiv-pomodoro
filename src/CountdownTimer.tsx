@@ -2,27 +2,20 @@ import React from 'react';
 import useCountdownTimer from './useCountdownTimer';
 
 const CountdownTimer = () => {
-    const {isRunning, remainingSeconds, inputMinutes, isPaused, setInputMinutes, formatTime, handleStart, handleStop, handlePause, handleResume, getStatus} = useCountdownTimer();
+    const {isRunning, remainingSeconds, inputMinutes, isPaused, formatTime, handleStart, handleStop, handlePause, handleResume, getStatus} = useCountdownTimer();
+
+    const displayTime = isRunning
+        ? formatTime(remainingSeconds)
+        : formatTime(parseInt(inputMinutes) * 60);
 
     return (
         <div className="timer-container">
             <div className="timer-display">
-                <h1>{formatTime(remainingSeconds)}</h1>
+                <h1>{displayTime}</h1>
                 <p>Status: {getStatus()}</p>
             </div>
 
             <div className="timer-controls">
-            <span>Set time to </span>
-                <input
-                    type="number"
-                    value={inputMinutes}
-                    onChange={(e) => setInputMinutes(e.target.value)}
-                    min="1"
-                    max="60"
-                    disabled={isRunning}
-                    placeholder='25'
-                />
-                <span> minutes</span>
                 <div>
                     <button onClick={handleStart} disabled={isRunning} >Start</button>
                     {isRunning && !isPaused && (<button onClick={handlePause}>Pause</button>)}

@@ -3,10 +3,24 @@ import { PhysicalPosition, Window } from "@tauri-apps/api/window";
 import sound from "./assets/alarm_sound.wav";
 
 const useCountdownTimer = () => {
+    const loadSettings = () => {
+        try {
+            const savedSettings = localStorage.getItem('pomoSetting');
+            if (savedSettings) {
+                return JSON.parse(savedSettings);
+            }
+        } catch (error) {
+            console.error('Error loading settings:', error);
+        }
+        return { defaultFocusTime: "25", defaultBreakTime: "5", defaultRestTime: "10" };
+    };
+
+    const settings = loadSettings();
+
     const [startTime, setStartTime] = useState<string | null>(null);
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(0);
-    const [inputMinutes, setInputMinutes] = useState("25");
+    const [inputMinutes, setInputMinutes] = useState(settings.defaultFocusTime);
     const [isPaused, setIsPaused] = useState(false);
 
     const formatTime = (totalSecond : number) => {
