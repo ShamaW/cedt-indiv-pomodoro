@@ -2,7 +2,7 @@ import React from 'react';
 import useCountdownTimer from './useCountdownTimer';
 
 const CountdownTimer = () => {
-    const {isRunning, remainingSeconds, inputMinutes, isPaused, formatTime, handleStart, handleStop, handlePause, handleResume, getStatus} = useCountdownTimer();
+    const {isRunning, remainingSeconds, inputMinutes, isPaused, formatTime, handleStart, handleStop, handlePause, handleResume, getStatus, testNotification} = useCountdownTimer();
 
     const displayTime = isRunning
         ? formatTime(remainingSeconds)
@@ -22,6 +22,7 @@ const CountdownTimer = () => {
                     {isRunning && isPaused && (<button onClick={handleResume}>Resume</button>)}
                     <button onClick={handleStop} disabled={!isRunning}>Stop</button>
                 </div>
+                <button onClick={testNotification}>Test Notification</button>
             </div>
         </div>
     );

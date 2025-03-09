@@ -30,31 +30,31 @@ const Setting = () => {
             <h2>Timer Settings</h2>
             <div className="settings-form">
                 <div className="setting-item">
-                    <label htmlFor="defaultTime">Focus:</label>
+                    <label htmlFor="defaultFocusTime">Focus:</label>
                     <input
                         type="number"
-                        id="defaultTime"
-                        name="defaultTime"
+                        id="defaultFocusTime"
+                        name="defaultFocusTime"
                         value={setting.defaultFocusTime}
                         onChange={handleChange}
                         min="1"
                         max="60"
                     />
-                    <label htmlFor="defaultTime">Break:</label>
+                    <label htmlFor="defaultBreakTime">Break:</label>
                     <input
                         type="number"
-                        id="defaultTime"
-                        name="defaultTime"
+                        id="defaultBreakTime"
+                        name="defaultBreakTime"
                         value={setting.defaultBreakTime}
                         onChange={handleChange}
                         min="1"
                         max="60"
                     />
-                    <label htmlFor="defaultTime">Rest:</label>
+                    <label htmlFor="defaultRestTime">Rest:</label>
                     <input
                         type="number"
-                        id="defaultTime"
-                        name="defaultTime"
+                        id="defaultRestTime"
+                        name="defaultRestTime"
                         value={setting.defaultRestTime}
                         onChange={handleChange}
                         min="1"

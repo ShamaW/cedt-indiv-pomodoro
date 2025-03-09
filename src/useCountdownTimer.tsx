@@ -47,6 +47,13 @@ const useCountdownTimer = () => {
         return () => {if (interval) clearInterval(interval)};
     }, [isRunning, isPaused, remainingSeconds]);
 
+    const testNotification = () => {
+        setIsRunning(false);
+        setIsPaused(false);
+        shakeWindow();
+        new Audio(sound).play();
+    }
+
     const handleStart = () => {
         const durationSeconds = parseInt(inputMinutes) * 60;
         setRemainingSeconds(durationSeconds);
@@ -96,7 +103,7 @@ const useCountdownTimer = () => {
         }
     };
 
-    return {startTime, isRunning, remainingSeconds, inputMinutes, isPaused, setStartTime, setIsRunning, setRemainingSeconds, setInputMinutes, setIsPaused, formatTime, handleStart, handleStop, handlePause, handleResume, getStatus, shakeWindow};
+    return {startTime, isRunning, remainingSeconds, inputMinutes, isPaused, setStartTime, setIsRunning, setRemainingSeconds, setInputMinutes, setIsPaused, formatTime, handleStart, handleStop, handlePause, handleResume, getStatus, shakeWindow, testNotification};
 }
 
 export default useCountdownTimer;
