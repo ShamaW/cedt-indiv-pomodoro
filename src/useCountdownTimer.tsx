@@ -29,6 +29,8 @@ const useCountdownTimer = () => {
         return `${minutes.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
     };
 
+    const alarmSound = new Audio(sound);
+
     useEffect(() => {
         let interval : number | undefined;
 
@@ -41,7 +43,7 @@ const useCountdownTimer = () => {
             setIsRunning(false);
             setIsPaused(false);
             shakeWindow();
-            new Audio(sound).play();
+            alarmSound.play();
         }
 
         return () => {if (interval) clearInterval(interval)};
@@ -51,7 +53,7 @@ const useCountdownTimer = () => {
         setIsRunning(false);
         setIsPaused(false);
         shakeWindow();
-        new Audio(sound).play();
+        alarmSound.play();
     }
 
     const handleStart = () => {
