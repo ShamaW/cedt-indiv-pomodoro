@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-interface SettingData {
-    defaultFocusTime: string;
-    defaultBreakTime: string;
-    defaultRestTime: string;
-}
+import SettingData from "./interface";
 
 const Setting = () => {
     const [setting, setSetting] = useState<SettingData>({
