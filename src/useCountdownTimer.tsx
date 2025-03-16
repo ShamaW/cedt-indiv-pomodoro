@@ -106,7 +106,7 @@ const useCountdownTimer = () => {
         }
     };
 
-    return {startTime, isRunning, remainingSeconds, inputMinutes, isPaused, displayTime, setStartTime, setIsRunning, setRemainingSeconds, setInputMinutes, setIsPaused, handleStart, handleStop, handlePause, handleResume, getStatus, shakeWindow, testNotification};
+    return {startTime, isRunning, remainingSeconds, inputMinutes, isPaused, displayTime, setStartTime, setIsRunning, setRemainingSeconds, setInputMinutes, setIsPaused, handleStart, handleStop, handlePause, handleResume, getStatus, shakeWindow, testNotification, loadSettings};
 }
 
 export default useCountdownTimer;

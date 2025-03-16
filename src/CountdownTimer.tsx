@@ -3,8 +3,6 @@ import { CountdownTimerProps } from './interface';
 
 const CountdownTimer = ({
     isRunning,
-    remainingSeconds,
-    inputMinutes,
     isPaused,
     displayTime,
     handleStart,

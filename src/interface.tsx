@@ -24,10 +24,10 @@ export interface CountdownTimerProps {
     isPaused: boolean;
     setStartTime: (time: string | null) => void;
     setIsRunning: (isRunning: boolean) => void;
-    setRemaningSeconds: (remainingSeconds: number) => void;
+    setRemainingSeconds: (remainingSeconds: number) => void;
     setInputMinutes: (inputMinutes: string) => void;
     setIsPaused: (isPaued: boolean) => void;
-    displayTime: number;
+    displayTime: string;
     handleStart: () => void;
     handleStop: () => void;
     handlePause: () => void;
