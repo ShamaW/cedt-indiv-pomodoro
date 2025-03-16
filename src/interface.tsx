@@ -1,10 +1,10 @@
 export interface SettingData {
-    defaultFocusTime: string;
-    defaultBreakTime: string;
-    defaultRestTime: string;
+    default_focus_time: string;
+    default_break_time: string;
+    default_rest_time: string;
 }
 
-export interface settingProps {
+export interface SettingProps {
     setInputMinutes: (minutes: string) => void;
 }
 

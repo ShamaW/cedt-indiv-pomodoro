@@ -1,26 +1,23 @@
 import { useState, useEffect } from 'react';
 import { PhysicalPosition, Window } from "@tauri-apps/api/window";
 import sound from "./assets/alarm_sound.wav";
+import { invoke } from "@tauri-apps/api/core";
+import { SettingData } from './interface';
 
 const useCountdownTimer = () => {
-    const loadSettings = () => {
+    const loadSettings = async () => {
         try {
-            const savedSettings = localStorage.getItem('pomoSetting');
-            if (savedSettings) {
-                return JSON.parse(savedSettings);
-            }
+            const settings: SettingData = await invoke("get_settings");
+            setInputMinutes(settings.default_focus_time);
         } catch (error) {
-            console.error('Error loading settings:', error);
+            console.error("Failed to load settings:", error);
         }
-        return { defaultFocusTime: "25", defaultBreakTime: "5", defaultRestTime: "10" };
     };
-
-    const settings = loadSettings();
 
     const [startTime, setStartTime] = useState<string | null>(null);
     const [isRunning, setIsRunning] = useState(false);
     const [remainingSeconds, setRemainingSeconds] = useState(0);
-    const [inputMinutes, setInputMinutes] = useState(settings.defaultFocusTime);
+    const [inputMinutes, setInputMinutes] = useState("25");
     const [isPaused, setIsPaused] = useState(false);
 
     const formatTime = (totalSecond : number) => {
@@ -53,19 +50,12 @@ const useCountdownTimer = () => {
         return () => {if (interval) clearInterval(interval)};
     }, [isRunning, isPaused, remainingSeconds]);
 
-    useEffect(() => {
-        if (!isRunning) {
-            const settings = loadSettings();
-            setInputMinutes(settings.defaultFocusTime);
-        }
-    }, [isRunning]);
-
     const testNotification = () => {
         setIsRunning(false);
         setIsPaused(false);
         shakeWindow();
         alarmSound.play();
-    }
+    };
 
     const handleStart = () => {
         const durationSeconds = parseInt(inputMinutes) * 60;
@@ -88,7 +78,7 @@ const useCountdownTimer = () => {
         if (!isRunning) return "Stopped";
         if (isPaused) return "Paused";
         return "Running";
-    }
+    };
 
     const shakeWindow = async () => {
         const appWindow = Window.getCurrent();
