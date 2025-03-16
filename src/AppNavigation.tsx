@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import CountdownTimer from './CountdownTimer.tsx';
 import Setting from './Setting.tsx';
+import { AppRouterProps } from './interface.tsx';
 
 const Navigation = () => {
     return (
@@ -12,10 +13,10 @@ const Navigation = () => {
     );
 }
 
-const AppRouter = () => {
+const AppRouter = ({ timerProps }: AppRouterProps) => {
     return (
         <Routes>
-            <Route path="/" element={<CountdownTimer />} />
+            <Route path="/" element={<CountdownTimer {...timerProps} />} />
             <Route path="/setting" element={<Setting />} />
         </Routes>
     );

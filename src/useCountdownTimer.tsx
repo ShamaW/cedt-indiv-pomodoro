@@ -29,6 +29,10 @@ const useCountdownTimer = () => {
         return `${minutes.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`;
     };
 
+    const displayTime = isRunning
+        ? formatTime(remainingSeconds)
+        : formatTime(parseInt(inputMinutes) * 60);
+
     const alarmSound = new Audio(sound);
 
     useEffect(() => {
@@ -105,7 +109,7 @@ const useCountdownTimer = () => {
         }
     };
 
-    return {startTime, isRunning, remainingSeconds, inputMinutes, isPaused, setStartTime, setIsRunning, setRemainingSeconds, setInputMinutes, setIsPaused, formatTime, handleStart, handleStop, handlePause, handleResume, getStatus, shakeWindow, testNotification};
+    return {startTime, isRunning, remainingSeconds, inputMinutes, isPaused, displayTime, setStartTime, setIsRunning, setRemainingSeconds, setInputMinutes, setIsPaused, handleStart, handleStop, handlePause, handleResume, getStatus, shakeWindow, testNotification};
 }
 
 export default useCountdownTimer;

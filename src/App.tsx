@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, use } from 'react';
 import { AppRouter } from './AppNavigation.tsx';
 import Layout from './Layout.tsx';
+import useCountdownTimer from './useCountdownTimer.tsx';
 
 function App() {
     const [currentTime, setCurrentTime] = useState(new Date());
+    const timerProps = useCountdownTimer();
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -18,7 +20,7 @@ function App() {
                 <p>Current System time: {currentTime.toLocaleTimeString(undefined, {hour12: false})}</p>
                 <p>Date: {currentTime.toLocaleDateString(undefined, {dateStyle:'medium'})}</p>
             </div>
-            <AppRouter />
+            <AppRouter timerProps={timerProps} />
         </Layout>
     );
 }

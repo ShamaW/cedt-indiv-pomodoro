@@ -1,13 +1,19 @@
 import React from 'react';
-import useCountdownTimer from './useCountdownTimer';
+import { CountdownTimerProps } from './interface';
 
-const CountdownTimer = () => {
-    const {isRunning, remainingSeconds, inputMinutes, isPaused, formatTime, handleStart, handleStop, handlePause, handleResume, getStatus, testNotification} = useCountdownTimer();
-
-    const displayTime = isRunning
-        ? formatTime(remainingSeconds)
-        : formatTime(parseInt(inputMinutes) * 60);
-
+const CountdownTimer = ({
+    isRunning,
+    remainingSeconds,
+    inputMinutes,
+    isPaused,
+    displayTime,
+    handleStart,
+    handleStop,
+    handlePause,
+    handleResume,
+    getStatus,
+    testNotification,
+}: CountdownTimerProps) => {
     return (
         <div className="timer-container">
             <div className="timer-display">
