@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigation } from "./AppNavigation";
-import LayoutProps from "./interface";
+import { LayoutProps } from "./interface";
 
 const Layout = ({ children }: LayoutProps) =>{
     return (

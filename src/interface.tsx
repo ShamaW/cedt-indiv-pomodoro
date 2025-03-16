@@ -1,9 +1,9 @@
-interface SettingData {
+export interface SettingData {
     defaultFocusTime: string;
     defaultBreakTime: string;
     defaultRestTime: string;
 }
 
-interface LayoutProps {
+export interface LayoutProps {
     children: React.ReactNode;
 }

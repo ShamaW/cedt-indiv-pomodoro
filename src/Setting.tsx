@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SettingData from "./interface";
+import { SettingData } from "./interface";
 
 const Setting = () => {
     const [setting, setSetting] = useState<SettingData>({
