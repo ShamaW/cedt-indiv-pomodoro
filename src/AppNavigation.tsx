@@ -17,7 +17,7 @@ const AppRouter = ({ timerProps }: AppRouterProps) => {
     return (
         <Routes>
             <Route path="/" element={<CountdownTimer {...timerProps} />} />
-            <Route path="/setting" element={<Setting />} />
+            <Route path="/setting" element={<Setting setInputMinutes={timerProps.setInputMinutes}/>} />
         </Routes>
     );
 }

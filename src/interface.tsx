@@ -4,8 +4,16 @@ export interface SettingData {
     defaultRestTime: string;
 }
 
+export interface settingProps {
+    setInputMinutes: (minutes: string) => void;
+}
+
 export interface LayoutProps {
     children: React.ReactNode;
+}
+
+export interface AppRouterProps {
+    timerProps: CountdownTimerProps;
 }
 
 export interface CountdownTimerProps {
@@ -27,8 +35,4 @@ export interface CountdownTimerProps {
     getStatus: () => string;
     shakeWindow: () => Promise<void>;
     testNotification: () => void;
-}
-
-export interface AppRouterProps {
-    timerProps: CountdownTimerProps;
 }

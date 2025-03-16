@@ -1,12 +1,19 @@
-import React, { useState } from "react";
-import { SettingData } from "./interface";
+import React, { useEffect, useState } from "react";
+import { settingProps, SettingData } from "./interface";
 
-const Setting = () => {
+const Setting = ({ setInputMinutes }: settingProps) => {
     const [setting, setSetting] = useState<SettingData>({
         defaultFocusTime: "25",
         defaultBreakTime: "5",
         defaultRestTime: "10"
     })
+
+    useEffect(() => {
+        const savedSettings = localStorage.getItem('pomoSetting');
+        if (savedSettings) {
+            setSetting(JSON.parse(savedSettings));
+        }
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, checked } = e.target;
@@ -18,6 +25,7 @@ const Setting = () => {
 
     const saveSetting = () => {
         localStorage.setItem('pomoSetting', JSON.stringify(setting));
+        setInputMinutes(setting.defaultFocusTime);
         alert('Setting saved!');
     }
 

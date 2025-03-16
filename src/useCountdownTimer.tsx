@@ -53,6 +53,13 @@ const useCountdownTimer = () => {
         return () => {if (interval) clearInterval(interval)};
     }, [isRunning, isPaused, remainingSeconds]);
 
+    useEffect(() => {
+        if (!isRunning) {
+            const settings = loadSettings();
+            setInputMinutes(settings.defaultFocusTime);
+        }
+    }, [isRunning]);
+
     const testNotification = () => {
         setIsRunning(false);
         setIsPaused(false);
