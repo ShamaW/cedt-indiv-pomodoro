@@ -3,12 +3,39 @@ import { PhysicalPosition, Window } from "@tauri-apps/api/window";
 import sound from "./assets/alarm_sound.wav";
 import { invoke } from "@tauri-apps/api/core";
 import { SettingData } from './interface';
+import { useLocation } from 'react-router-dom';
 
 const useCountdownTimer = () => {
+    const location = useLocation();
+    const [currentTimerType, setCurrentTimerType] = useState('focus');
+    
+    useEffect(() => {
+        if (location.pathname === '/break') {
+            setCurrentTimerType('break');
+        }
+        else if (location.pathname === '/rest') {
+            setCurrentTimerType('rest');
+        }
+        else {
+            setCurrentTimerType('focus');
+        }
+    }, [location.pathname]);
+    
     const loadSettings = async () => {
         try {
             const settings: SettingData = await invoke("get_settings");
-            setInputMinutes(settings.default_focus_time);
+            switch(currentTimerType) {
+                case 'break':
+                    setInputMinutes(settings.default_break_time);
+                    break;
+                case 'rest':
+                    setInputMinutes(settings.default_rest_time);
+                    break;
+                case 'focus':
+                default:
+                    setInputMinutes(settings.default_focus_time);
+                    break;
+            }
         } catch (error) {
             console.error("Failed to load settings:", error);
         }
@@ -31,6 +58,14 @@ const useCountdownTimer = () => {
         : formatTime(parseInt(inputMinutes) * 60);
 
     const alarmSound = new Audio(sound);
+
+    useEffect(() => {
+        loadSettings();
+        if (isRunning) {
+            setIsRunning(false);
+            setIsPaused(false);
+        }
+    }, [currentTimerType]);
 
     useEffect(() => {
         let interval : number | undefined;
