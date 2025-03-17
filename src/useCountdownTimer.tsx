@@ -4,6 +4,7 @@ import sound from "./assets/alarm_sound.wav";
 import { invoke } from "@tauri-apps/api/core";
 import { SettingData } from './interface';
 import { useLocation } from 'react-router-dom';
+import { isPermissionGranted, requestPermission, sendNotification } from '@tauri-apps/plugin-notification';
 
 const useCountdownTimer = () => {
     const location = useLocation();
@@ -80,6 +81,7 @@ const useCountdownTimer = () => {
             setIsPaused(false);
             shakeWindow();
             alarmSound.play();
+            sendSystemNotification(currentTimerType);
         }
 
         return () => {if (interval) clearInterval(interval)};
@@ -90,6 +92,7 @@ const useCountdownTimer = () => {
         setIsPaused(false);
         shakeWindow();
         alarmSound.play();
+        sendSystemNotification(currentTimerType);
     };
 
     const handleStart = () => {
@@ -140,6 +143,36 @@ const useCountdownTimer = () => {
             }, i * 50);
         }
     };
+
+    const sendSystemNotification = async (timerType: string) => {
+        let permissionGranted = await isPermissionGranted();
+
+        if (!permissionGranted) {
+            const permission = await requestPermission();
+            permissionGranted = permission === 'granted';
+        }
+
+        if (permissionGranted) {
+            let title = "Time's up! | Pomo by ShamaW";
+            let body = "";
+
+            switch (timerType) {
+                case 'focus':
+                    body = "Focus session has ended. Take a break!";
+                    break;
+                case 'break':
+                    body = "Break session has ended. Ready for another?";
+                    break;
+                case 'rest':
+                    body = "Rest session has ended. Ready to get back?";
+                    break;
+                default:
+                    body = "Timer has finished";
+            }
+
+            sendNotification({title, body});
+        }
+    }
 
     return {startTime, isRunning, remainingSeconds, inputMinutes, isPaused, displayTime, setStartTime, setIsRunning, setRemainingSeconds, setInputMinutes, setIsPaused, handleStart, handleStop, handlePause, handleResume, getStatus, shakeWindow, testNotification, loadSettings};
 }

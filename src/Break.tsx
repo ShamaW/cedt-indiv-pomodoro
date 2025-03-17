@@ -9,7 +9,8 @@ const Break = ({
     handleStop,
     handlePause,
     handleResume,
-    getStatus
+    getStatus,
+    testNotification
 }: CountdownTimerProps) => {
     return (
         <div className="timer-container">
@@ -28,6 +29,7 @@ const Break = ({
                     {isRunning && isPaused && (<button onClick={handleResume}>Resume</button>)}
                     <button onClick={handleStop} disabled={!isRunning}>Stop</button>
                 </div>
+                <button onClick={testNotification}>Test Notification</button>
             </div>
         </div>
     );
