@@ -2,8 +2,8 @@ import React from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
 import CountdownTimer from './CountdownTimer.tsx';
 import Setting from './Setting.tsx';
-import Break from './break.tsx';
-import Rest from './rest.tsx';
+import Break from './Break.tsx';
+import Rest from './Rest.tsx';
 import { AppRouterProps } from './interface.tsx';
 
 const Navigation = () => {
