@@ -15,9 +15,7 @@
       {
         "title": "Pomo by ShamaW",
         "width": 800,
-        "height": 600,
-        "resizable": true,
-        "center": true
+        "height": 600
       }
     ],
     "security": {

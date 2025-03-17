@@ -106,6 +106,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_notification::init())
         .manage(SettingsState(Mutex::new(Settings::default())))
         .invoke_handler(tauri::generate_handler![
             get_current_time,
