@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { PhysicalPosition, Window } from "@tauri-apps/api/window";
 import sound from "./assets/alarm_sound.wav";
 import { invoke } from "@tauri-apps/api/core";
@@ -58,7 +58,7 @@ const useCountdownTimer = () => {
         ? formatTime(remainingSeconds)
         : formatTime(parseInt(inputMinutes) * 60);
 
-    const alarmSound = new Audio(sound);
+    const alarmSound = useMemo(() => new Audio(sound), []);
 
     useEffect(() => {
         loadSettings();
