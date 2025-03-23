@@ -4,7 +4,13 @@ import sound from "./assets/alarm_sound.wav";
 import { invoke } from "@tauri-apps/api/core";
 import { SettingData } from './interface';
 import { useLocation } from 'react-router-dom';
-import useNotification from './useNotification';
+import { useNotification } from './SystemNotificationContext';
+
+const DEFAULT_TIMER_SETTINGS = {
+    focus: 'default_focus_time',
+    break: 'default_break_time',
+    rest: 'default_rest_time'
+};
 
 const useCountdownTimer = () => {
     const location = useLocation();
@@ -12,31 +18,24 @@ const useCountdownTimer = () => {
     const { sendSystemNotification } = useNotification();
     
     useEffect(() => {
-        if (location.pathname === '/break') {
-            setCurrentTimerType('break');
-        }
-        else if (location.pathname === '/rest') {
-            setCurrentTimerType('rest');
-        }
-        else {
-            setCurrentTimerType('focus');
-        }
+        const pathToTimerType = {
+            '/break': 'break',
+            'rest': 'rest',
+            '/': 'focus'
+        };
+        setCurrentTimerType(pathToTimerType[location.pathname as keyof typeof pathToTimerType] || 'focus');
     }, [location.pathname]);
     
     const loadSettings = async () => {
         try {
             const settings: SettingData = await invoke("get_settings");
-            switch(currentTimerType) {
-                case 'break':
-                    setInputMinutes(settings.default_break_time);
-                    break;
-                case 'rest':
-                    setInputMinutes(settings.default_rest_time);
-                    break;
-                case 'focus':
-                default:
-                    setInputMinutes(settings.default_focus_time);
-                    break;
+            const settingKey = DEFAULT_TIMER_SETTINGS[currentTimerType as keyof typeof DEFAULT_TIMER_SETTINGS];
+
+            if (settingKey && settings[settingKey as keyof SettingData]) {
+                setInputMinutes(settings[settingKey as keyof SettingData]);
+            }
+            else {
+                setInputMinutes("25");
             }
         } catch (error) {
             console.error("Failed to load settings:", error);

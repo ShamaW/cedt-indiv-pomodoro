@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { AppRouter } from './AppNavigation.tsx';
 import Layout from './Layout.tsx';
 import useCountdownTimer from './useCountdownTimer.tsx';
+import { NotificationProvider } from './SystemNotificationContext.tsx';
 
-function App() {
+function AppContent() {
     const [currentTime, setCurrentTime] = useState(new Date());
     const timerProps = useCountdownTimer();
 
@@ -22,6 +23,14 @@ function App() {
             </div>
             <AppRouter timerProps={timerProps} />
         </Layout>
+    );
+}
+
+function App() {
+    return (
+        <NotificationProvider>
+            <AppContent />
+        </NotificationProvider>
     );
 }
 
