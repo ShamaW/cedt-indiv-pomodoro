@@ -9,17 +9,14 @@ function AppContent() {
     const timerProps = useCountdownTimer();
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
+        const timer = setInterval(() => {setCurrentTime(new Date());}, 1000);
         return () => clearInterval(timer);
     }, [])
 
     return (
         <Layout>
             <div className="time-display">
-                <p>Current System time: {currentTime.toLocaleTimeString(undefined, {hour12: false})}</p>
-                <p>Date: {currentTime.toLocaleDateString(undefined, {dateStyle:'medium'})}</p>
+                <p>Current Time: {currentTime.toLocaleTimeString(undefined, {hour12: false})} | {currentTime.toLocaleDateString(undefined, {dateStyle:'medium'})}</p>
             </div>
             <AppRouter timerProps={timerProps} />
         </Layout>
