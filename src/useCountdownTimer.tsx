@@ -20,7 +20,7 @@ const useCountdownTimer = () => {
     useEffect(() => {
         const pathToTimerType = {
             '/break': 'break',
-            'rest': 'rest',
+            '/rest': 'rest',
             '/': 'focus'
         };
         setCurrentTimerType(pathToTimerType[location.pathname as keyof typeof pathToTimerType] || 'focus');
