@@ -14,10 +14,8 @@ const Break = ({
 }: CountdownTimerProps) => {
     return (
         <div className="timer-container">
-            <div className="timer-display">
-                <h1>{displayTime}</h1>
-                <p>Status: {getStatus()}</p>
-            </div>
+            <div className="timer-display">{displayTime}</div>
+            <p>Status: {getStatus()}</p>
 
             <div className="timer-controls">
                 <div>

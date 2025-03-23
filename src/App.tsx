@@ -16,7 +16,7 @@ function AppContent() {
     return (
         <Layout>
             <div className="time-display">
-                <p>Current Time: {currentTime.toLocaleTimeString(undefined, {hour12: false})} | {currentTime.toLocaleDateString(undefined, {dateStyle:'medium'})}</p>
+                {/* <p>Current Time: {currentTime.toLocaleTimeString(undefined, {hour12: false})} | {currentTime.toLocaleDateString(undefined, {dateStyle:'medium'})}</p> */}
             </div>
             <AppRouter timerProps={timerProps} />
         </Layout>
