@@ -5,6 +5,7 @@ import Setting from './Setting.tsx';
 import Break from './Break.tsx';
 import Rest from './Rest.tsx';
 import { AppRouterProps } from './interface.tsx';
+import { SettingFilled, SettingTwoTone } from '@ant-design/icons';
 
 const Navigation = () => {
     return (
@@ -12,7 +13,7 @@ const Navigation = () => {
             <Link to="/" className="nav-link">Focus</Link>
             <Link to="/break" className="nav-link">Break</Link>
             <Link to="/rest" className="nav-link">Rest</Link>
-            <Link to="/setting" className='nav-link-setting'>Setting</Link>
+            <Link to="/setting" className='nav-link-setting'><SettingFilled style={{ fontSize: '18px', color: '#FF6347' }}/></Link>
         </nav>
     );
 }
