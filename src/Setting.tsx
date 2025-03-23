@@ -42,39 +42,47 @@ const Setting = ({ setInputMinutes }: SettingProps) => {
 
     return (
         <div className="settings-container">
-            <h2>Timer Settings</h2>
             <div className="settings-form">
-                <div className="setting-item">
-                    <label htmlFor="default_focus_time">Focus:</label>
-                    <input
-                        type="number"
-                        id="default_focus_time"
-                        name="default_focus_time"
-                        value={setting.default_focus_time}
-                        onChange={handleChange}
-                        min="1"
-                        max="60"
-                    />
-                    <label htmlFor="default_break_time">Break:</label>
-                    <input
-                        type="number"
-                        id="default_break_time"
-                        name="default_break_time"
-                        value={setting.default_break_time}
-                        onChange={handleChange}
-                        min="1"
-                        max="60"
-                    />
-                    <label htmlFor="default_rest_time">Rest:</label>
-                    <input
-                        type="number"
-                        id="default_rest_time"
-                        name="default_rest_time"
-                        value={setting.default_rest_time}
-                        onChange={handleChange}
-                        min="1"
-                        max="60"
-                    />
+                <div className="setting-row">
+                    <div className="input-group">
+                        <label htmlFor="default_focus_time">Focus:</label>
+                        <input
+                            className="input-box"
+                            type="number"
+                            id="default_focus_time"
+                            name="default_focus_time"
+                            value={setting.default_focus_time}
+                            onChange={handleChange}
+                            min="1"
+                            max="60"
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="default_break_time">Break:</label>
+                        <input
+                            className="input-box"
+                            type="number"
+                            id="default_break_time"
+                            name="default_break_time"
+                            value={setting.default_break_time}
+                            onChange={handleChange}
+                            min="1"
+                            max="60"
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="default_rest_time">Rest:</label>
+                        <input
+                            className="input-box"
+                            type="number"
+                            id="default_rest_time"
+                            name="default_rest_time"
+                            value={setting.default_rest_time}
+                            onChange={handleChange}
+                            min="1"
+                            max="60"
+                        />
+                    </div>
                 </div>
                 <button
                     onClick={saveSetting}

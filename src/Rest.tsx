@@ -21,12 +21,10 @@ const Rest = ({
 
             <div className="timer-controls">
                 <div>
-                    <button onClick={handleStart} disabled={isRunning} >Start</button>
+                    {!isRunning && !isPaused && (<button onClick={handleStart} disabled={isRunning} >Start</button>)}
                     {isRunning && !isPaused && (<button onClick={handlePause}>Pause</button>)}
                     {isRunning && isPaused && (<button onClick={handleResume}>Resume</button>)}
-                    <button onClick={handleStop} disabled={!isRunning}>Stop</button>
                 </div>
-                <button onClick={testNotification}>Test Notification</button>
             </div>
         </div>
     );
