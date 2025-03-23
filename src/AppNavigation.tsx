@@ -12,7 +12,7 @@ const Navigation = () => {
             <Link to="/" className="nav-link">Focus</Link>
             <Link to="/break" className="nav-link">Break</Link>
             <Link to="/rest" className="nav-link">Rest</Link>
-            <Link to="/setting" className='nav-link'>Setting</Link>
+            <Link to="/setting" className='nav-link-setting'>Setting</Link>
         </nav>
     );
 }
