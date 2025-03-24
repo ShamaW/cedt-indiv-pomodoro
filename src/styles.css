@@ -123,6 +123,7 @@ button:active {
 }
 
 .nav-link-setting {
+  margin: 10px;
   text-decoration: none;
   color: #333;
 }
@@ -135,4 +136,23 @@ button:active {
   font-size: 50px;
   font-weight: 700;
   margin: 30px;
+}
+
+.menu-navigation {
+  display:contents;
+  margin-bottom: 10px;
+  align-self: center;
+}
+
+.menu-nav-link {
+  padding: 8px;
+  margin: 4px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.menu-nav-link:hover {
+  outline: auto;
 }

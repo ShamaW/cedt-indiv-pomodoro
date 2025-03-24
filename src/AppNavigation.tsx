@@ -4,8 +4,9 @@ import CountdownTimer from './CountdownTimer.tsx';
 import Setting from './Setting.tsx';
 import Break from './Break.tsx';
 import Rest from './Rest.tsx';
+import { MenuNavigation, MenuRouter } from './MenuNavigation.tsx';
 import { AppRouterProps } from './interface.tsx';
-import { SettingFilled, SettingTwoTone } from '@ant-design/icons';
+import { SettingFilled, SettingTwoTone, MenuOutlined } from '@ant-design/icons';
 
 const Navigation = () => {
     return (
@@ -14,6 +15,7 @@ const Navigation = () => {
             <Link to="/break" className="nav-link">Break</Link>
             <Link to="/rest" className="nav-link">Rest</Link>
             <Link to="/setting" className='nav-link-setting'><SettingFilled style={{ fontSize: '18px', color: '#FF6347' }}/></Link>
+            <Link to="/MenuNavigation" className='nav-link-setting'><MenuOutlined style={{ fontSize: '18px', color: '#FF6347' }}/></Link>
         </nav>
     );
 }
@@ -25,6 +27,7 @@ const AppRouter = ({ timerProps }: AppRouterProps) => {
             <Route path="/break" element={<Break {...timerProps} />} />
             <Route path="/rest" element={<Rest {...timerProps} />} />
             <Route path="/setting" element={<Setting setInputMinutes={timerProps.setInputMinutes}/>} />
+            <Route path='/MenuNavigation' element={<MenuNavigation/>} />
         </Routes>
     );
 }
