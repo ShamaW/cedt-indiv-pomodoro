@@ -1,5 +1,6 @@
 import React from 'react';
 import { CountdownTimerProps } from './interface';
+import { Button } from "antd";
 
 const Rest = ({
     isRunning,
@@ -19,9 +20,9 @@ const Rest = ({
 
             <div className="timer-controls">
                 <div>
-                    {!isRunning && !isPaused && (<button onClick={handleStart} disabled={isRunning} >Start</button>)}
-                    {isRunning && !isPaused && (<button onClick={handlePause}>Pause</button>)}
-                    {isRunning && isPaused && (<button onClick={handleResume}>Resume</button>)}
+                    {!isRunning && !isPaused && (<Button onClick={handleStart} disabled={isRunning} >Start</Button>)}
+                    {isRunning && !isPaused && (<Button onClick={handlePause}>Pause</Button>)}
+                    {isRunning && isPaused && (<Button onClick={handleResume}>Resume</Button>)}
                 </div>
             </div>
         </div>

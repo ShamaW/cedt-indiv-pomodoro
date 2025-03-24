@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { SettingProps, SettingData } from "./interface";
 import { invoke } from "@tauri-apps/api/core";
+import { Button } from "antd";
+import { Input } from "antd";
 
 const Setting = ({ setInputMinutes }: SettingProps) => {
     const [setting, setSetting] = useState<SettingData>({
@@ -46,7 +48,7 @@ const Setting = ({ setInputMinutes }: SettingProps) => {
                 <div className="setting-row">
                     <div className="input-group">
                         <label htmlFor="default_focus_time">Focus:</label>
-                        <input
+                        <Input
                             className="input-box"
                             type="number"
                             id="default_focus_time"
@@ -59,7 +61,7 @@ const Setting = ({ setInputMinutes }: SettingProps) => {
                     </div>
                     <div className="input-group">
                         <label htmlFor="default_break_time">Break:</label>
-                        <input
+                        <Input
                             className="input-box"
                             type="number"
                             id="default_break_time"
@@ -72,7 +74,7 @@ const Setting = ({ setInputMinutes }: SettingProps) => {
                     </div>
                     <div className="input-group">
                         <label htmlFor="default_rest_time">Rest:</label>
-                        <input
+                        <Input
                             className="input-box"
                             type="number"
                             id="default_rest_time"
@@ -84,13 +86,13 @@ const Setting = ({ setInputMinutes }: SettingProps) => {
                         />
                     </div>
                 </div>
-                <button
+                <Button
                     onClick={saveSetting}
                     className="save-button"
                     disabled={isSaving}
                 >
                     {isSaving ? "Saving..." : "Save Settings"}
-                </button>
+                </Button>
                 {saveMessage && <p className="save-message">{saveMessage}</p>}
             </div>
         </div>
