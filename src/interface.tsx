@@ -36,3 +36,17 @@ export interface CountdownTimerProps {
     shakeWindow: () => Promise<void>;
     testNotification: () => void;
 }
+
+export interface TodoItem {
+    id: string;
+    title: string;
+    completed: boolean;
+    createAt: string;
+}
+
+export interface TodoListProps {
+    todos: TodoItem[];
+    addTodo: (title: string) => void;
+    toggleTodo: (title: string) => void;
+    deleteTodo: (title: string) => void;
+}
