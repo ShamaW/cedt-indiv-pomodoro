@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { SettingProps, SettingData } from "./interface";
 import { invoke } from "@tauri-apps/api/core";
-import { Button } from "antd";
-import { Input } from "antd";
+import { Button, Input } from "antd";
+import React, { useEffect, useState } from "react";
+import { SettingData, SettingProps } from "../utils/interface";
 
 const Setting = ({ setInputMinutes }: SettingProps) => {
     const [setting, setSetting] = useState<SettingData>({

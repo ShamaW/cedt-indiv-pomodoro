@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { TodoItem } from './interface';
 import { invoke } from '@tauri-apps/api/core';
+import { useEffect, useState } from 'react';
+import { TodoItem } from '../utils/interface';
 
 const useTodoList = () => {
     const [todos, setTodos] = useState<TodoItem[]>([]);

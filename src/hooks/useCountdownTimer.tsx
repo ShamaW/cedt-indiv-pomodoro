@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo } from 'react';
-import { PhysicalPosition, Window } from "@tauri-apps/api/window";
-import sound from "./assets/alarm_sound.wav";
 import { invoke } from "@tauri-apps/api/core";
-import { SettingData } from './interface';
+import { PhysicalPosition, Window } from "@tauri-apps/api/window";
+import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useNotification } from './SystemNotificationContext';
+import sound from "../assets/alarm_sound.wav";
+import { useNotification } from '../context/SystemNotificationContext';
+import { SettingData } from '../utils/interface';
 
 const DEFAULT_TIMER_SETTINGS = {
     focus: 'default_focus_time',

@@ -1,8 +1,8 @@
-import React from 'react';
-import { CountdownTimerProps } from './interface';
 import { Button } from "antd";
+import React from 'react';
+import { CountdownTimerProps } from '../utils/interface';
 
-const Break = ({
+const Rest = ({
     isRunning,
     isPaused,
     displayTime,
@@ -29,4 +29,4 @@ const Break = ({
     );
 }
 
-export default Break;
+export default Rest;

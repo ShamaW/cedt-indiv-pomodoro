@@ -1,8 +1,8 @@
-import React from 'react';
-import { CountdownTimerProps } from './interface';
 import { Button } from "antd";
+import React from 'react';
+import { CountdownTimerProps } from '../utils/interface';
 
-const Rest = ({
+const CountdownTimer = ({
     isRunning,
     isPaused,
     displayTime,
@@ -11,7 +11,7 @@ const Rest = ({
     handlePause,
     handleResume,
     getStatus,
-    testNotification
+    testNotification,
 }: CountdownTimerProps) => {
     return (
         <div className="timer-container">
@@ -24,9 +24,10 @@ const Rest = ({
                     {isRunning && !isPaused && (<Button onClick={handlePause}>Pause</Button>)}
                     {isRunning && isPaused && (<Button onClick={handleResume}>Resume</Button>)}
                 </div>
+                {/* <button onClick={testNotification}>Test Notification</button> */}
             </div>
         </div>
     );
 }
 
-export default Rest;
+export default CountdownTimer;

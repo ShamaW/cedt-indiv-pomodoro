@@ -1,7 +1,7 @@
 import { CalendarOutlined, OrderedListOutlined } from '@ant-design/icons';
 import React from 'react';
 import { Link, Routes } from 'react-router-dom';
-import { AppRouterProps } from './interface.tsx';
+import { AppRouterProps } from '../utils/interface.tsx';
 
 const MenuNavigation = () => {
     return (

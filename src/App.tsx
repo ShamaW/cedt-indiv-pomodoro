@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { AppRouter } from './AppNavigation.tsx';
-import Layout from './Layout.tsx';
-import useCountdownTimer from './useCountdownTimer.tsx';
-import { NotificationProvider } from './SystemNotificationContext.tsx';
+import React, { useEffect, useState } from 'react';
+import Layout from './components/Layout.tsx';
+import { NotificationProvider } from './context/SystemNotificationContext.tsx';
+import useCountdownTimer from './hooks/useCountdownTimer.tsx';
+import { AppRouter } from './navigation/AppNavigation.tsx';
 
 function AppContent() {
     const [currentTime, setCurrentTime] = useState(new Date());

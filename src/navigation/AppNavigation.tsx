@@ -1,13 +1,13 @@
 import { MenuOutlined, OrderedListOutlined, SettingFilled } from '@ant-design/icons';
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import Break from './Break.tsx';
-import CountdownTimer from './CountdownTimer.tsx';
-import { MenuNavigation } from './MenuNavigation.tsx';
-import Rest from './Rest.tsx';
-import Setting from './Setting.tsx';
-import { AppRouterProps } from './interface.tsx';
-import TodoList from './TodoList.tsx';
+import Break from '../components/Break.tsx';
+import CountdownTimer from '../components/CountdownTimer.tsx';
+import { MenuNavigation } from '../components/MenuNavigation.tsx';
+import Rest from '../components/Rest.tsx';
+import Setting from '../components/Setting.tsx';
+import TodoList from '../components/TodoList.tsx';
+import { AppRouterProps } from '../utils/interface.tsx';
 
 const Navigation = () => {
     return (
@@ -35,4 +35,5 @@ const AppRouter = ({ timerProps, todoProps }: AppRouterProps) => {
     );
 }
 
-export { Navigation, AppRouter };
+export { AppRouter, Navigation };
+

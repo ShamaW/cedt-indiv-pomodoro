@@ -1,5 +1,5 @@
 import React from 'react';
-import { TodoListProps } from './interface';
+import { TodoListProps } from '../utils/interface';
 
 const TodoList = ({
     todos,
