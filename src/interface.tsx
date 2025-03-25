@@ -14,6 +14,7 @@ export interface LayoutProps {
 
 export interface AppRouterProps {
     timerProps: CountdownTimerProps;
+    todoProps: TodoListProps;
 }
 
 export interface CountdownTimerProps {
@@ -46,6 +47,12 @@ export interface TodoItem {
 
 export interface TodoListProps {
     todos: TodoItem[];
+    newTodoTitle: string;
+    isLoading: boolean;
+    setTodos: (todos: TodoItem[]) => void;
+    setNewTodoTitle: (newTodoTitle: string | null) => void;
+    setIsLoading: (isLoading: boolean) => void;
+    loadTodos: () => void;
     addTodo: (title: string) => void;
     toggleTodo: (title: string) => void;
     deleteTodo: (title: string) => void;

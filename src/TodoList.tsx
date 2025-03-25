@@ -1,10 +1,31 @@
-import React, { useState, useEffect } from 'react';
-import { TodoItem, TodoListProps } from './interface';
+import React from 'react';
+import { TodoListProps } from './interface';
 
-const TodoList = () => {
-    return (
-        <div>This is todo page</div>
+const TodoList = ({
+    todos,
+    newTodoTitle,
+    setTodos,
+    setNewTodoTitle,
+    setIsLoading,
+    loadTodos,
+    addTodo,
+    toggleTodo,
+    deleteTodo
+}: TodoListProps) => {
+    return(
+        <div>
+            <p>Task</p>
+            <div>
+                <input
+                    type='text'
+                    value={newTodoTitle}
+                    onChange={(e) => setNewTodoTitle(e.target.value)}
+                    placeholder='Todo Task here'
+                />
+            </div>
+        </div>
     );
+    
 }
 
 export default TodoList;

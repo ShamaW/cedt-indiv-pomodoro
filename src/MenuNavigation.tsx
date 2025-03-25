@@ -1,8 +1,7 @@
+import { CalendarOutlined, OrderedListOutlined } from '@ant-design/icons';
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Link, Routes } from 'react-router-dom';
 import { AppRouterProps } from './interface.tsx';
-import { OrderedListOutlined, CalendarOutlined } from '@ant-design/icons';
-import TodoList from './TodoList.tsx';
 
 const MenuNavigation = () => {
     return (
