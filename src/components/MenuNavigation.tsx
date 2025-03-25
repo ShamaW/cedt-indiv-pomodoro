@@ -1,7 +1,6 @@
 import { CalendarOutlined, OrderedListOutlined } from '@ant-design/icons';
 import React from 'react';
-import { Link, Routes } from 'react-router-dom';
-import { AppRouterProps } from '../utils/interface.tsx';
+import { Link } from 'react-router-dom';
 
 const MenuNavigation = () => {
     return (
@@ -12,13 +11,5 @@ const MenuNavigation = () => {
     );
 }
 
-const MenuRouter = ({ timerProps }: AppRouterProps) => {
-    return (
-        <Routes>
-            {/* <Route path="/TodoList" element={<TodoList />} /> */}
-            {/* <Route path="/Calendar" element={<Calendar />} /> */}
-        </Routes>
-    );
-}
 
-export { MenuNavigation, MenuRouter };
+export { MenuNavigation };

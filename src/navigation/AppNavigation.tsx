@@ -1,4 +1,4 @@
-import { MenuOutlined, OrderedListOutlined, SettingFilled } from '@ant-design/icons';
+import { MenuOutlined, SettingFilled } from '@ant-design/icons';
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
 import Break from '../components/Break.tsx';
@@ -16,7 +16,6 @@ const Navigation = () => {
             <Link to="/break" className="nav-link">Break</Link>
             <Link to="/rest" className="nav-link">Rest</Link>
             <Link to="/setting" className='nav-link-setting'><SettingFilled style={{ fontSize: '18px', color: '#FF6347' }}/></Link>
-            <Link to="/TodoList" className='nav-link-setting'><OrderedListOutlined style={{ fontSize: '18px', color: '#FF6347' }}/></Link>
             <Link to="/MenuNavigation" className='nav-link-setting'><MenuOutlined style={{ fontSize: '18px', color: '#FF6347' }}/></Link>
         </nav>
     );
