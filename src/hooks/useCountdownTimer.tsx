@@ -1,7 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { PhysicalPosition, Window } from "@tauri-apps/api/window";
 import { useEffect, useMemo, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import sound from "../assets/alarm_sound.wav";
 import { useNotification } from '../context/SystemNotificationContext';
 import { SettingData } from '../utils/interface';
@@ -13,18 +12,8 @@ const DEFAULT_TIMER_SETTINGS = {
 };
 
 const useCountdownTimer = () => {
-    const location = useLocation();
-    const [currentTimerType, setCurrentTimerType] = useState('focus');
+    const [currentTimerType, setCurrentTimerType] = useState<'focus' | 'break' | 'rest'>('focus');
     const { sendSystemNotification } = useNotification();
-    
-    useEffect(() => {
-        const pathToTimerType = {
-            '/break': 'break',
-            '/rest': 'rest',
-            '/': 'focus'
-        };
-        setCurrentTimerType(pathToTimerType[location.pathname as keyof typeof pathToTimerType] || 'focus');
-    }, [location.pathname]);
     
     const loadSettings = async () => {
         try {
@@ -96,7 +85,7 @@ const useCountdownTimer = () => {
     };
 
     const handleStart = () => {
-        const durationSeconds = parseInt(inputMinutes) * 60;
+        const durationSeconds = parseInt(inputMinutes, 10) * 60;
         setRemainingSeconds(durationSeconds);
         setIsRunning(true);
         setIsPaused(false);
@@ -144,7 +133,28 @@ const useCountdownTimer = () => {
         }
     };
 
-    return {startTime, isRunning, remainingSeconds, inputMinutes, isPaused, displayTime, setStartTime, setIsRunning, setRemainingSeconds, setInputMinutes, setIsPaused, handleStart, handleStop, handlePause, handleResume, getStatus, shakeWindow, testNotification, loadSettings};
+    return {
+        startTime,
+        isRunning,
+        remainingSeconds,
+        inputMinutes,
+        isPaused,
+        displayTime,
+        setStartTime,
+        setIsRunning,
+        setRemainingSeconds,
+        setInputMinutes,
+        setIsPaused,
+        handleStart,
+        handleStop,
+        handlePause,
+        handleResume,
+        getStatus,
+        shakeWindow,
+        testNotification,
+        loadSettings,
+        currentTimerType,
+        setCurrentTimerType};
 }
 
 export default useCountdownTimer;
