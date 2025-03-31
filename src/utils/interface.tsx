@@ -14,7 +14,6 @@ export interface LayoutProps {
 
 export interface AppRouterProps {
     timerProps: CountdownTimerProps;
-    todoProps: TodoListProps;
 }
 
 export interface CountdownTimerProps {
