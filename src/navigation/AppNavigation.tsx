@@ -6,7 +6,7 @@ import CountdownTimer from '../components/CountdownTimer.tsx';
 import { MenuNavigation } from '../components/MenuNavigation.tsx';
 import Rest from '../components/Rest.tsx';
 import Setting from '../components/Setting.tsx';
-import TodoList from '../components/TodoList.tsx';
+import TodoPage from '../pages/TodoPage.tsx';
 import { AppRouterProps } from '../utils/interface.tsx';
 
 const Navigation = () => {
@@ -21,14 +21,14 @@ const Navigation = () => {
     );
 }
 
-const AppRouter = ({ timerProps, todoProps }: AppRouterProps) => {
+const AppRouter = ({ timerProps }: AppRouterProps) => {
     return (
         <Routes>
             <Route path="/" element={<CountdownTimer {...timerProps} />} />
             <Route path="/break" element={<Break {...timerProps} />} />
             <Route path="/rest" element={<Rest {...timerProps} />} />
             <Route path="/setting" element={<Setting setInputMinutes={timerProps.setInputMinutes}/>} />
-            <Route path='/TodoList' element={<TodoList {... todoProps} />} />
+            <Route path='/TodoList' element={<TodoPage/>} />
             <Route path='/MenuNavigation' element={<MenuNavigation/>} />
         </Routes>
     );

@@ -107,3 +107,16 @@ pub fn delete_todo(app_handle: AppHandle, id: String) -> Result<Vec<TodoItem>, S
 
     Ok(todos)
 }
+
+#[command]
+pub fn update_todo(app_handle: AppHandle, id: String, title: String) -> Result<Vec<TodoItem>, String> {
+    let mut todos = load_todos(&app_handle);
+
+    if let Some(todo) = todos.iter_mut().find(|todo| todo.id == id) {
+        todo.title = title;
+    }
+
+    save_todos(&app_handle, &todos)?;
+
+    Ok(todos)
+}

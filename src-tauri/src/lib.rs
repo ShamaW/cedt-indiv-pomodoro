@@ -6,7 +6,7 @@ use serde::{Serialize, Deserialize};
 use std::sync::Mutex;
 use tauri::{command, Manager};
 use settings::{Settings, SettingsState, get_settings, save_user_settings, load_settings};
-use todo::{TodoState, get_todos, load_todos, add_todo, toggle_todo, delete_todo};
+use todo::{TodoState, get_todos, load_todos, add_todo, toggle_todo, delete_todo, update_todo};
 
 #[derive(Serialize, Deserialize)]
 pub struct TimeData {
@@ -40,7 +40,8 @@ pub fn run() {
             get_todos,
             add_todo,
             toggle_todo,
-            delete_todo
+            delete_todo,
+            update_todo
         ])
         .setup(|app| {
             let initial_settings = load_settings(&app.handle());

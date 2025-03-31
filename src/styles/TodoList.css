@@ -1,0 +1,96 @@
+.todo-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.add-task-btn {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.todo-input-container {
+    margin-bottom: 20px;
+}
+
+.todo-input {
+    width: 80%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.todo-item {
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.todo-content {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.todo-checkbox {
+    margin-right: 10px;
+}
+
+.todo-title {
+    flex-grow: 1;
+    width: 50%;
+    word-wrap: break-word;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.todo-title:hover {
+    background-color: #f5f5f5;
+    border-radius: 4px;
+}
+
+.todo-edit-input {
+    flex-grow: 1;
+    padding: 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.delete-btn {
+    opacity: 0;
+    background: none;
+    color: #ff6b6b;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    font-size: 18px;
+}
+
+.todo-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.completed .todo-title {
+    text-decoration: line-through;
+    color: #999;
+}
+
+.loading-message, .no-tasks {
+    text-align: center;
+    color: #999;
+    padding: 20px 0;
+}

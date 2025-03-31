@@ -6,13 +6,17 @@ const useTodoList = () => {
     const [todos, setTodos] = useState<TodoItem[]>([]);
     const [newTodoTitle, setNewTodoTitle] = useState("");
     const [isLoading, setIsLoading] = useState(true);
+    const [showInput, setShowInput] = useState(false);
+    const [editingId, setEditingId] = useState<string | null>(null);
+    const [editValue, setEditValue] = useState('');
+    const [localShowInput, setLocalShowInput] = useState(false);
 
     useEffect(() => { loadTodos(); }, []);
 
     const loadTodos = async() => {
         setIsLoading(true);
         const loadedTodos: TodoItem[] = await invoke('get_todos');
-        setTodos(loadedTodos);
+        setTodos(Array.isArray(loadedTodos) ? loadedTodos : []);
         setIsLoading(false);
     };
 
@@ -23,21 +27,84 @@ const useTodoList = () => {
             title: newTodoTitle
         });
 
-        setTodos(updateTodos);
+        setTodos(Array.isArray(updateTodos) ? updateTodos : []);
         setNewTodoTitle("");
+        setShowInput(false);
     }
 
     const toggleTodo = async(id: string) => {
         const updateTodos: TodoItem[] = await invoke('toggle_todo', { id });
-        setTodos(updateTodos);
+        setTodos(Array.isArray(updateTodos) ? updateTodos : []);
     }
 
     const deleteTodo = async(id: string) => {
         const updateTodos: TodoItem[] = await invoke('delete_todo', { id });
-        setTodos(updateTodos);
+        setTodos(Array.isArray(updateTodos) ? updateTodos : []);
     }
 
-    return {todos, newTodoTitle, isLoading, setTodos, setNewTodoTitle, setIsLoading, loadTodos, addTodo, toggleTodo, deleteTodo};
+    const updateTodo = async(id: string, title: string) => {
+        const updateTodos: TodoItem[] = await invoke('update_todo', { id, title });
+        setTodos(Array.isArray(updateTodos) ? updateTodos : []);
+        setEditingId(null);
+    }
+
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') { addTodo(); }
+    };
+
+    const handleShowInput = (value: boolean) => {
+        setShowInput(value);
+    };
+
+    const handleEditStart = (todo: TodoItem) => {
+        setEditingId(todo.id);
+        setEditValue(todo.title);
+    };
+
+    const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setEditValue(e.target.value);
+    };
+
+    const handleEditBlur = (id: string) => {
+        if (editValue.trim()) {
+            updateTodo(id, editValue);
+        }
+        setEditingId(null);
+    };
+
+    const handleEditKeyPress = (e: React.KeyboardEvent, id: string) => {
+        if (e.key === 'Enter') {
+            if (editValue.trim()) {
+                updateTodo(id, editValue);
+            }
+            setEditingId(null);
+        }
+    };
+
+    return {
+        todos,
+        newTodoTitle,
+        isLoading,
+        showInput,
+        editingId,
+        editValue,
+        setTodos,
+        setNewTodoTitle,
+        setIsLoading,
+        setShowInput,
+        setEditingId,
+        loadTodos,
+        addTodo,
+        toggleTodo,
+        deleteTodo,
+        updateTodo,
+        handleKeyPress,
+        handleShowInput,
+        handleEditStart,
+        handleEditChange,
+        handleEditBlur,
+        handleEditKeyPress
+    };
 }
 
 export default useTodoList;

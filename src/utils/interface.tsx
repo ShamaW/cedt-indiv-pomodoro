@@ -27,7 +27,7 @@ export interface CountdownTimerProps {
     setIsRunning: (isRunning: boolean) => void;
     setRemainingSeconds: (remainingSeconds: number) => void;
     setInputMinutes: (inputMinutes: string) => void;
-    setIsPaused: (isPaued: boolean) => void;
+    setIsPaused: (isPaused: boolean) => void;
     displayTime: string;
     handleStart: () => void;
     handleStop: () => void;
@@ -49,11 +49,23 @@ export interface TodoListProps {
     todos: TodoItem[];
     newTodoTitle: string;
     isLoading: boolean;
+    showInput: boolean;
+    editingId: string | null;
+    editValue: string;
     setTodos: (todos: TodoItem[]) => void;
-    setNewTodoTitle: (newTodoTitle: string | null) => void;
+    setNewTodoTitle: (newTodoTitle: string) => void;
     setIsLoading: (isLoading: boolean) => void;
+    setShowInput: (show: boolean) => void;
+    setEditingId: (id: string | null) => void;
     loadTodos: () => void;
-    addTodo: (title: string) => void;
-    toggleTodo: (title: string) => void;
-    deleteTodo: (title: string) => void;
+    addTodo: () => void;
+    toggleTodo: (id: string) => void;
+    deleteTodo: (id: string) => void;
+    updateTodo: (id: string, title: string) => void;
+    handleKeyPress: (e: React.KeyboardEvent) => void;
+    handleShowInput: (value: boolean) => void;
+    handleEditStart: (todo: TodoItem) => void;
+    handleEditChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleEditBlur: (id: string) => void;
+    handleEditKeyPress: (e: React.KeyboardEvent, id: string) => void;
 }
