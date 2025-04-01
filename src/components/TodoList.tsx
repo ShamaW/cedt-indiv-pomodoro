@@ -39,7 +39,7 @@ const TodoList = ({
                         type='text'
                         value={newTodoTitle}
                         onChange={(e) => setNewTodoTitle(e.target.value)}
-                        onKeyPress={handleKeyPress}
+                        onPressEnter={handleKeyPress}
                         placeholder='Enter task here and press Enter'
                         autoFocus
                         className="todo-input"

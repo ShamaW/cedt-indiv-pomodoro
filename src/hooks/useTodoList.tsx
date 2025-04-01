@@ -73,12 +73,11 @@ const useTodoList = () => {
     };
 
     const handleEditKeyPress = (e: React.KeyboardEvent, id: string) => {
-        if (e.key === 'Enter') {
-            if (editValue.trim()) {
-                updateTodo(id, editValue);
-            }
-            setEditingId(null);
+        if (editValue.trim()) {
+            updateTodo(id, editValue);
         }
+        setEditingId(null);
+
     };
 
     return {

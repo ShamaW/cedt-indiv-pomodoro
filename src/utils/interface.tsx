@@ -35,6 +35,8 @@ export interface CountdownTimerProps {
     getStatus: () => string;
     shakeWindow: () => Promise<void>;
     testNotification: () => void;
+    currentTimerType: 'focus' | 'break' | 'rest';
+    setCurrentTimerType: (type: 'focus' | 'break' | 'rest') => void;
 }
 
 export interface TodoItem {
