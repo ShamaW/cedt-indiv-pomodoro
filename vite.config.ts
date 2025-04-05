@@ -1,3 +1,4 @@
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 // @ts-expect-error process is a nodejs global
@@ -5,6 +6,7 @@ const host = process.env.TAURI_DEV_HOST;
 
 // https://vitejs.dev/config/
 export default defineConfig(async () => ({
+  plugins: [react()],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
@@ -27,10 +29,10 @@ export default defineConfig(async () => ({
       ignored: ["**/src-tauri/**"],
     },
     headers: {
-      // Use unsafe-none to allow popup interactions
-      "Cross-Origin-Opener-Policy": "unsafe-none",
       // Use credentialless instead of require-corp for better compatibility
-      "Cross-Origin-Embedder-Policy": "credentialless"
+      "Cross-Origin-Embedder-Policy": "credentialless",
+      // Add this header to resolve the window.closed call issue
+      "Cross-Origin-Opener-Policy": "unsafe-none"
     },
   },
   define: {
