@@ -2,9 +2,11 @@ import { CalendarOutlined, LoginOutlined, LogoutOutlined, ReloadOutlined } from 
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import { openUrl } from '@tauri-apps/plugin-opener';
 import { Button, Empty, List, message, Spin, Tag } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
-import '../styles/calendar.css'
+import '../styles/calendar.css';
+
+const SESSION_TIMEOUT = 3 * 24 * 60 * 60 * 1000;
 
 const apiCalendar = new ApiCalendar({
     clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
@@ -28,12 +30,43 @@ interface CalendarEvent {
     description?: string;
 }
 
+interface StoredSession {
+    isSignedIn: boolean;
+    timestamp: number;
+}
+
 const Calendar = () => {
     const [isSignedIn, setIsSignedIn] = useState(false);
     const [events, setEvents] = useState<CalendarEvent[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [retryCount, setRetryCount] = useState(0);
+
+    useEffect(() => {
+        const checkStoredSession = () => {
+            try {
+                const storedSessionJSON = localStorage.getItem('googleCalendarSession');
+                if (storedSessionJSON) {
+                    const storedSession: StoredSession = JSON.parse(storedSessionJSON);
+                    
+                    const now = Date.now();
+                    if (storedSession.isSignedIn && (now - storedSession.timestamp) < SESSION_TIMEOUT) {
+                        setIsSignedIn(true);
+                        fetchEvents();
+                        console.log('Restored session from localStorage');
+                    } else {
+                        localStorage.removeItem('googleCalendarSession');
+                        console.log('Session expired, removed from localStorage');
+                    }
+                }
+            } catch (error) {
+                console.error('Error accessing stored session:', error);
+                localStorage.removeItem('googleCalendarSession');
+            }
+        };
+        
+        checkStoredSession();
+    }, []);
 
     const formatDateTime = (dateTimeStr?: string, dateStr?: string) => {
         if (!dateTimeStr && !dateStr) return 'N/A';
@@ -53,6 +86,11 @@ const Calendar = () => {
         onSuccess: (response) => {
             console.log('Login Success:', response);
             setIsSignedIn(true);
+            const session: StoredSession = {
+                isSignedIn: true,
+                timestamp: Date.now()
+            };
+            localStorage.setItem('googleCalendarSession', JSON.stringify(session));
             fetchEvents();
             message.success('Successfully signed in!');
         },
@@ -109,6 +147,7 @@ const Calendar = () => {
         googleLogout();
         setIsSignedIn(false);
         setEvents([]);
+        localStorage.removeItem('googleCalendarSession');
         console.log('Log out successfully');
         message.info('Signed out successfully');
     };
