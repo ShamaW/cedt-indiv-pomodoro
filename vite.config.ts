@@ -26,5 +26,14 @@ export default defineConfig(async () => ({
       // 3. tell vite to ignore watching `src-tauri`
       ignored: ["**/src-tauri/**"],
     },
+    headers: {
+      // Use unsafe-none to allow popup interactions
+      "Cross-Origin-Opener-Policy": "unsafe-none",
+      // Use credentialless instead of require-corp for better compatibility
+      "Cross-Origin-Embedder-Policy": "credentialless"
+    },
+  },
+  define: {
+    // Add global constants here if needed
   },
 }));
