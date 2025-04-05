@@ -4,6 +4,7 @@ import { openUrl } from '@tauri-apps/plugin-opener';
 import { Button, Empty, List, message, Spin, Tag } from 'antd';
 import React, { useState } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
+import '../styles/calendar.css'
 
 const apiCalendar = new ApiCalendar({
     clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
