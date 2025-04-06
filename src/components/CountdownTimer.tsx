@@ -1,6 +1,7 @@
 import { Button } from "antd";
 import React from 'react';
 import { CountdownTimerProps } from '../utils/interface';
+import '../styles/styles.css'
 
 const CountdownTimer = ({
     isRunning,
@@ -23,8 +24,8 @@ const CountdownTimer = ({
     return (
         <div className="timer-container">
             <div className="timer-display">{displayTime}</div>
-            <p>Mode: {currentTimerType.charAt(0).toUpperCase() + currentTimerType.slice(1)}</p>
-            <p>Status: {getStatus()}</p>
+            {/* <p>Mode: {currentTimerType.charAt(0).toUpperCase() + currentTimerType.slice(1)}</p> */}
+            {/* <p>Status: {getStatus()}</p> */}
 
             <div className="timer-controls">
                 <div>

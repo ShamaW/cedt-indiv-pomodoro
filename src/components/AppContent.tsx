@@ -42,8 +42,8 @@ const AppContent: React.FC = () => {
                 title="Calendar"
                 isVisible={visiblePanels.calendar}
                 onClose={() => closePanel('calendar')}
-                defaultPosition={{ x: 250, y: 200 }}
-                width={600}
+                defaultPosition={{ x: 940, y: 100 }}
+                width={500}
                 height={550}
             >
                 <Calendar />

@@ -9,5 +9,5 @@
 
 /* This ensures each component inside a panel has proper spacing */
 .app-content .floating-panel>div {
-    height: 100%;
+    height: 20px;
 }
