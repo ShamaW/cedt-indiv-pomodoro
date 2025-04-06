@@ -1,14 +1,15 @@
-import React from "react";
-import { Navigation } from "../navigation/AppNavigation";
-import { LayoutProps } from "../utils/interface";
+import React from 'react';
+import '../styles/Layout.css';
+import { LayoutProps } from '../utils/interface';
 
-const Layout = ({ children }: LayoutProps) =>{
+const Layout: React.FC<LayoutProps> = ({ children }) => {
     return (
-        <main className="container">
-            <Navigation />
-            {children}
-        </main>
+        <div className="layout">
+            <div className="main-content">
+                {children}
+            </div>
+        </div>
     );
-}
+};
 
-export default Layout
+export default Layout;

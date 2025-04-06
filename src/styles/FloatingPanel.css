@@ -1,0 +1,55 @@
+.floating-panel {
+    position: absolute;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    border: 1px solid #eaeaea;
+}
+
+.panel-header {
+    padding: 10px 15px;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eaeaea;
+    cursor: grab;
+    user-select: none;
+}
+
+.panel-title {
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+}
+
+.panel-controls {
+    display: flex;
+    gap: 5px;
+}
+
+.panel-content {
+    padding: 15px;
+    flex-grow: 1;
+    overflow-y: auto;
+    height: calc(100% - 40px);
+}
+
+.panel-content.minimized {
+    display: none;
+}
+
+.timer-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.todo-container {
+    height: 100%;
+    overflow-y: auto;
+}
