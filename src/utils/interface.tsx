@@ -90,6 +90,7 @@ export interface FloatingPanelProps {
     defaultPosition?: { x: number; y: number };
     width?: number;
     height?: number;
+}
 
 export interface CalendarEvent {
     id: string;
