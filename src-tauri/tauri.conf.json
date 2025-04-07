@@ -14,8 +14,9 @@
     "windows": [
       {
         "title": "Pomo by ShamaW",
-        "width": 400,
-        "height": 400
+        "width": 800,
+        "height": 600,
+        "center": true
       }
     ],
     "security": {

@@ -70,3 +70,39 @@ export interface TodoListProps {
     handleEditBlur: (id: string) => void;
     handleEditKeyPress: (e: React.KeyboardEvent, id: string) => void;
 }
+
+export interface CalendarEvent {
+    id: string;
+    summary: string;
+    start: {
+        dateTime?: string;
+        date?: string;
+    };
+    end: {
+        dateTime?: string;
+        date?: string;
+    };
+    location?: string;
+    description?: string;
+}
+
+export interface StoredSession {
+    isSignedIn: boolean;
+    timestamp: number;
+}
+
+declare global {
+    interface Window {
+        gapi: {
+            client: {
+                calendar: {
+                    events: {
+                        list: (params: any) => Promise<any>;
+                    };
+                };
+                setToken: (token: { access_token: string } | null) => void;
+                getToken: () => { access_token: string } | null;
+            };
+        };
+    }
+}

@@ -3,6 +3,9 @@ import Layout from './components/Layout.tsx';
 import { NotificationProvider } from './context/SystemNotificationContext.tsx';
 import useCountdownTimer from './hooks/useCountdownTimer.tsx';
 import { AppRouter } from './navigation/AppNavigation.tsx';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 function AppContent() {
     const [currentTime, setCurrentTime] = useState(new Date());
@@ -25,9 +28,11 @@ function AppContent() {
 
 function App() {
     return (
-        <NotificationProvider>
-            <AppContent />
-        </NotificationProvider>
+        <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+            <NotificationProvider>
+                <AppContent />
+            </NotificationProvider>
+        </GoogleOAuthProvider>
     );
 }
 
