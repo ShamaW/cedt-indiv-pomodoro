@@ -1,5 +1,6 @@
 mod settings;
 mod todo;
+mod session;
 
 use chrono::{Local, DateTime};
 use serde::{Serialize, Deserialize};
@@ -7,6 +8,7 @@ use std::sync::Mutex;
 use tauri::{command, Manager};
 use settings::{Settings, SettingsState, get_settings, save_user_settings, load_settings};
 use todo::{TodoState, get_todos, load_todos, add_todo, toggle_todo, delete_todo, update_todo};
+use session::{store_calendar_token, get_calendar_token, clear_calendar_token};
 
 #[derive(Serialize, Deserialize)]
 pub struct TimeData {
@@ -41,7 +43,10 @@ pub fn run() {
             add_todo,
             toggle_todo,
             delete_todo,
-            update_todo
+            update_todo,
+            store_calendar_token,
+            get_calendar_token,
+            clear_calendar_token
         ])
         .setup(|app| {
             let initial_settings = load_settings(&app.handle());

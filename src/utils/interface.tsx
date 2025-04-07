@@ -90,3 +90,19 @@ export interface StoredSession {
     isSignedIn: boolean;
     timestamp: number;
 }
+
+declare global {
+    interface Window {
+        gapi: {
+            client: {
+                calendar: {
+                    events: {
+                        list: (params: any) => Promise<any>;
+                    };
+                };
+                setToken: (token: { access_token: string } | null) => void;
+                getToken: () => { access_token: string } | null;
+            };
+        };
+    }
+}

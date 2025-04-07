@@ -1,10 +1,9 @@
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
+import { invoke } from '@tauri-apps/api/core';
 import { message } from 'antd';
 import { useEffect, useState } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
-import { CalendarEvent, StoredSession } from '../utils/interface';
-
-const SESSION_TIMEOUT = 3 * 24 * 60 * 60 * 1000;
+import { CalendarEvent } from '../utils/interface';
 
 const apiCalendar = new ApiCalendar({
     clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
@@ -20,30 +19,58 @@ const useCalendar = () => {
     const [error, setError] = useState<string | null>(null);
     const [retryCount, setRetryCount] = useState(0);
 
-    useEffect(() => {
-        const checkStoredSession = () => {
+    const initializeWithToken = async (token: string) => {
+        return new Promise<void>((resolve, reject) => {
             try {
-                const storedSessionJSON = localStorage.getItem('googleCalendarSession');
-                if (storedSessionJSON) {
-                    const storedSession: StoredSession = JSON.parse(storedSessionJSON);
-                    
-                    const now = Date.now();
-                    if (storedSession.isSignedIn && (now - storedSession.timestamp) < SESSION_TIMEOUT) {
-                        setIsSignedIn(true);
+                window.gapi.client.setToken({
+                    access_token: token,
+                });
+                
+                window.gapi.client.calendar.events.list({
+                    'calendarId': 'primary',
+                    'maxResults': 1,
+                }).then(() => {
+                    setIsSignedIn(true);
+                    resolve();
+                }).catch((error) => {
+                    console.error('Token validation failed:', error);
+                    invoke('clear_calendar_token').catch(console.error);
+                    reject(error);
+                });
+            } catch (error) {
+                console.error('Failed to initialize with token:', error);
+                reject(error);
+            }
+        });
+    };
+
+    useEffect(() => {
+        const checkGapiAndToken = async () => {
+            if (!window.gapi || !window.gapi.client || !window.gapi.client.calendar) {
+                console.log('Waiting for GAPI to load...');
+                setTimeout(checkGapiAndToken, 500);
+                return;
+            }
+            
+            try {
+                const token = await invoke<string | null>('get_calendar_token');
+                if (token) {
+                    console.log('Restoring session with stored token');
+                    try {
+                        await initializeWithToken(token);
+                        console.log('Session restored successfully, fetching events');
                         fetchEvents();
-                        console.log('Restored session from localStorage');
-                    } else {
-                        localStorage.removeItem('googleCalendarSession');
-                        console.log('Session expired, removed from localStorage');
+                    } catch (error) {
+                        console.error('Failed to restore session:', error);
+                        setIsSignedIn(false);
                     }
                 }
             } catch (error) {
-                console.error('Error accessing stored session:', error);
-                localStorage.removeItem('googleCalendarSession');
+                console.error('Error accessing stored token:', error);
             }
         };
         
-        checkStoredSession();
+        checkGapiAndToken();
     }, []);
 
     const formatDateTime = (dateTimeStr?: string, dateStr?: string) => {
@@ -65,6 +92,10 @@ const useCalendar = () => {
         setError(null);
 
         try {
+            if (!window.gapi || !window.gapi.client || !window.gapi.client.getToken()) {
+                throw new Error("Google API client not initialized or not signed in");
+            }
+
             const today = new Date();
             const tomorrow = new Date(today);
             tomorrow.setDate(tomorrow.getDate() + 1);
@@ -91,16 +122,26 @@ const useCalendar = () => {
     };
 
     const login = useGoogleLogin({
-        onSuccess: (response) => {
-            console.log('Login Success:', response);
-            setIsSignedIn(true);
-            const session: StoredSession = {
-                isSignedIn: true,
-                timestamp: Date.now()
-            };
-            localStorage.setItem('googleCalendarSession', JSON.stringify(session));
-            fetchEvents();
-            message.success('Successfully signed in!');
+        onSuccess: async (response) => {
+            console.log('Login Success');
+            
+            try {
+                await invoke('store_calendar_token', {
+                    token: response.access_token,
+                    expiresIn: response.expires_in
+                });
+                
+                window.gapi.client.setToken({
+                    access_token: response.access_token,
+                });
+                
+                setIsSignedIn(true);
+                fetchEvents();
+                message.success('Successfully signed in!');
+            } catch (error) {
+                console.error('Failed to store token:', error);
+                message.error('Failed to store session. Your login might not persist.');
+            }
         },
         onError: (error) => {
             console.error('Login Failed:', error);
@@ -121,13 +162,23 @@ const useCalendar = () => {
         flow: 'implicit'
     });
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
+        if (window.gapi && window.gapi.client) {
+            window.gapi.client.setToken(null);
+        }
+        
         googleLogout();
         setIsSignedIn(false);
         setEvents([]);
-        localStorage.removeItem('googleCalendarSession');
-        console.log('Log out successfully');
-        message.info('Signed out successfully');
+        
+        try {
+            await invoke('clear_calendar_token');
+            console.log('Log out successfully');
+            message.info('Signed out successfully');
+        } catch (error) {
+            console.error('Failed to clear token:', error);
+            message.error('Failed to clear session completely.');
+        }
     };
 
     const retryFetchEvents = () => {
