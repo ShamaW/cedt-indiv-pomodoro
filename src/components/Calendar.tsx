@@ -5,6 +5,7 @@ import { Button, Empty, List, message, Spin, Tag } from 'antd';
 import React, { useEffect, useState } from 'react';
 import ApiCalendar from 'react-google-calendar-api';
 import '../styles/calendar.css';
+import { CalendarEvent, StoredSession } from '../utils/interface';
 
 const SESSION_TIMEOUT = 3 * 24 * 60 * 60 * 1000;
 
@@ -15,25 +16,7 @@ const apiCalendar = new ApiCalendar({
     discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest']
 });
 
-interface CalendarEvent {
-    id: string;
-    summary: string;
-    start: {
-        dateTime?: string;
-        date?: string;
-    };
-    end: {
-        dateTime?: string;
-        date?: string;
-    };
-    location?: string;
-    description?: string;
-}
 
-interface StoredSession {
-    isSignedIn: boolean;
-    timestamp: number;
-}
 
 const Calendar = () => {
     const [isSignedIn, setIsSignedIn] = useState(false);

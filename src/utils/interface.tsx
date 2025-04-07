@@ -70,3 +70,23 @@ export interface TodoListProps {
     handleEditBlur: (id: string) => void;
     handleEditKeyPress: (e: React.KeyboardEvent, id: string) => void;
 }
+
+export interface CalendarEvent {
+    id: string;
+    summary: string;
+    start: {
+        dateTime?: string;
+        date?: string;
+    };
+    end: {
+        dateTime?: string;
+        date?: string;
+    };
+    location?: string;
+    description?: string;
+}
+
+export interface StoredSession {
+    isSignedIn: boolean;
+    timestamp: number;
+}
