@@ -86,7 +86,7 @@ const Calendar = () => {
                                 <List.Item
                                     key={event.id}
                                     className="calendar-event-item"
-                                    onClick={() => openInGoogleCalendar(event.id)}
+                                    onClick={() => openInGoogleCalendar()}
                                 >
                                     <List.Item.Meta
                                         title={event.summary || 'Untitled Event'}
