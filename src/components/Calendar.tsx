@@ -17,10 +17,9 @@ const Calendar = () => {
         formatDateTime
     } = useCalendar();
 
-    const openInGoogleCalendar = async (eventId: string) => {
+    const openInGoogleCalendar = async () => {
         try {
             await openUrl(`https://calendar.google.com/calendar`);
-            console.log(eventId);
         } catch (err) {
             console.error('Failed to open calendar event:', err);
         }

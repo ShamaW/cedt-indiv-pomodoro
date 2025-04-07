@@ -34,6 +34,6 @@ export default defineConfig({
   },
   define: {
     // Ensure global variables are properly defined
-    "process.env": process.env,
+    "process.env.TAURI_DEV_HOST": JSON.stringify(process.env.TAURI_DEV_HOST),
   },
 });

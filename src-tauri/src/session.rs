@@ -60,7 +60,6 @@ pub fn get_calendar_token(app_handle: AppHandle) -> Option<String> {
                 Ok(session) => {
                     if let Some(expires_at) = session.expires_at {
                         if Utc::now() > expires_at {
-                            // Token has expired, delete the session file
                             let _ = fs::remove_file(&session_path);
                             return None;
                         }
