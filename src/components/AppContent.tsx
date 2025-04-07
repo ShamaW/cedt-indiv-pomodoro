@@ -11,7 +11,7 @@ import Setting from './Setting';
 
 const AppContent: React.FC = () => {
     const timerProps = useCountdownTimer();
-    const { visiblePanels, togglePanel, closePanel } = usePanelContext();
+    const { visiblePanels, closePanel } = usePanelContext();
 
     return (
         <div className="app-content">
