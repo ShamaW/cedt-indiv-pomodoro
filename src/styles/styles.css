@@ -151,3 +151,7 @@ button:active {
 .menu-nav-link:hover {
   outline: auto;
 }
+
+.timer-container {
+  display:grid;
+}

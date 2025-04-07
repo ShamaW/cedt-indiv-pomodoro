@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface SettingData {
     default_focus_time: string;
     default_break_time: string;
@@ -70,6 +72,24 @@ export interface TodoListProps {
     handleEditBlur: (id: string) => void;
     handleEditKeyPress: (e: React.KeyboardEvent, id: string) => void;
 }
+
+export type PanelType = 'timer' | 'todoList' | 'calendar' | 'settings';
+
+export interface PanelContextType {
+    visiblePanels: Record<PanelType, boolean>;
+    togglePanel: (panel: PanelType) => void;
+    openPanel: (panel: PanelType) => void;
+    closePanel: (panel: PanelType) => void;
+}
+
+export interface FloatingPanelProps {
+    title: string;
+    children: ReactNode;
+    isVisible: boolean;
+    onClose: () => void;
+    defaultPosition?: { x: number; y: number };
+    width?: number;
+    height?: number;
 
 export interface CalendarEvent {
     id: string;
